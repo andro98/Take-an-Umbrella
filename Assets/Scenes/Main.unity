@@ -190,12 +190,12 @@ PrefabInstance:
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
@@ -970,6 +970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 1658830504}
   runSpeed: 1000
+  turnAnimation: 3
 --- !u!1 &1402701100
 GameObject:
   m_ObjectHideFlags: 0

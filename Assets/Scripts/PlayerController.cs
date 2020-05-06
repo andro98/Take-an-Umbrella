@@ -4,26 +4,58 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("GUI Settings")]
     public Joystick joystick;
+    [Header("Player Settings")]
     public float runSpeed = 10.0f;
+    [Tooltip("The velocity of the player to stop running animation")]
+    [Range(2.0f, 10.0f)]
+    public float turnAnimation = 5.0f;
 
+    // Player Private Settings
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
-    void Start()
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent < SpriteRenderer>();
+        Initialze();
     }
 
-    // Update is called once per frame
+    private void Initialze()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         float hMove = joystick.Horizontal * runSpeed;
+
+        UpdateAnimation();
+        FlipPlayer(hMove);
+        MovePlayer(hMove);
+    }
+
+    private void MovePlayer(float hMove)
+    {
+        rb.AddForce(new Vector2(hMove * Time.deltaTime, 0.0f));
+    }
+
+    private void FlipPlayer(float hMove)
+    {
         if (hMove < 0)
             spriteRenderer.flipX = true;
-        else
+        else if (hMove > 0)
             spriteRenderer.flipX = false;
-        rb.AddForce(new Vector2(hMove * Time.deltaTime, 0.0f));
+    }
+
+    private void UpdateAnimation()
+    {
+        if (Mathf.Abs(rb.velocity.x) <= turnAnimation)
+            animator.SetBool("run", false);
+        else
+            animator.SetBool("run", true);
     }
 }
